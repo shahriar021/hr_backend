@@ -1,9 +1,9 @@
-const connection = require('../../../connection/config/database');
+const connection = require("../../../connection/config/database");
 
 const transport_allowance = {
   transport_allowance_list: async (req, res) => {
     try {
-      const data = 'select * from transport_allowance';
+      const data = "select * from transport_allowance";
       connection.query(data, (err, result) => {
         if (err) {
           res.json(err);
@@ -11,7 +11,7 @@ const transport_allowance = {
         res.status(200).send(result);
       });
     } catch (err) {
-      console.log(err, 'error');
+      console.log(err, "error");
     }
   },
 
@@ -28,9 +28,10 @@ const transport_allowance = {
         created_by,
         created_date,
         modified_date,
+        user_id,
       } = req.body;
       const data =
-        'insert into transport_allowance(travel_from,travel_from_time,travel_to,travel_to_time,vehicle_name,km_travel,amount,created_by,created_date,modified_date) values(?,?,?,?,?,?,?,?,?,?) ';
+        "insert into transport_allowance(travel_from,travel_from_time,travel_to,travel_to_time,vehicle_name,km_travel,amount,created_by,created_date,modified_date,user_id) values(?,?,?,?,?,?,?,?,?,?,?) ";
       const values = [
         travel_from,
         travel_from_time,
@@ -42,6 +43,7 @@ const transport_allowance = {
         created_by,
         created_date,
         modified_date,
+        user_id,
       ];
       connection.query(data, values, (err, result) => {
         if (err) {
@@ -56,15 +58,15 @@ const transport_allowance = {
 
   transport_allowance_delete: async (req, res) => {
     try {
-      const {id} = req.params;
-      const query = 'DELETE FROM transport_allowance WHERE id = ?';
+      const { id } = req.params;
+      const query = "DELETE FROM transport_allowance WHERE id = ?";
       connection.query(query, [id], (error, result) => {
         if (!error && result.affectedRows > 0) {
           console.log(result);
           return res.send(result);
         } else {
-          console.log(error || 'Product not found' || id);
-          return res.status(404).json({message: 'Product not found.'});
+          console.log(error || "Product not found" || id);
+          return res.status(404).json({ message: "Product not found." });
         }
       });
     } catch (error) {
@@ -74,10 +76,10 @@ const transport_allowance = {
 
   transport_allowance_edit: async (req, res) => {
     try {
-      const {id} = req.params;
+      const { id } = req.params;
       console.log(id);
       const data =
-        'update transport_allowance set travel_from=?,travel_from_time=?,travel_to=?,travel_to_time=?,vehicle_name=?,km_travel=?,amount=?,modified_by=? where id=?';
+        "update transport_allowance set travel_from=?,travel_from_time=?,travel_to=?,travel_to_time=?,vehicle_name=?,km_travel=?,amount=?,modified_by=? where id=?";
       const value = [
         req.body.travel_from,
         req.body.travel_from_time,
@@ -94,7 +96,7 @@ const transport_allowance = {
         if (err) {
           res.send(err);
         } else {
-          res.status(200).json({message: 'successfully updated'});
+          res.status(200).json({ message: "successfully updated" });
         }
       });
     } catch (err) {
