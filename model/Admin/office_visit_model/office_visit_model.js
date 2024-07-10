@@ -96,7 +96,7 @@ const office_visit = {
         const office_visit_id = result.insertId;
 
         const querySecond =
-          "INSERT INTO office_visit_remarks (office_visit_id, remarks, remarks_date, created_by, created_date, modified_date) VALUES (?, ?, ?, ?, ?, ?)";
+          "INSERT INTO office_visit_remarks (office_visit_id, remarks, remarks_date, created_by, created_date, modified_date,user_id,) VALUES (?, ?, ?, ?, ?, ?,?)";
         const valuesSecond = [
           office_visit_id,
           remarks,
@@ -104,6 +104,7 @@ const office_visit = {
           created_by,
           created_date,
           modified_date,
+          user_id,
         ];
 
         connection.query(querySecond, valuesSecond, (err, result) => {
@@ -115,7 +116,7 @@ const office_visit = {
           }
 
           const queryThirdd =
-            "INSERT INTO  office_visit_person  (office_visit_id,person_name,person_mobile,person_email,add_person_date,created_by, created_date, modified_date)  VALUES (?, ?, ?, ?, ?, ?,?,?)";
+            "INSERT INTO  office_visit_person  (office_visit_id,person_name,person_mobile,person_email,add_person_date,created_by, created_date, modified_date,user_id,)  VALUES (?, ?, ?, ?, ?, ?,?,?,?)";
           const valuesThird = [
             office_visit_id,
             person_name,
@@ -125,6 +126,7 @@ const office_visit = {
             created_by,
             created_date,
             modified_date,
+            user_id,
           ];
 
           connection.query(queryThirdd, valuesThird, (err, result) => {
@@ -175,9 +177,10 @@ const office_visit = {
 
   office_visit_remarks_create: async (req, res) => {
     try {
-      const { remarks, remarks_date, created_by, office_visit_id } = req.body;
+      const { remarks, remarks_date, created_by, office_visit_id, user_id } =
+        req.body;
       const data =
-        "insert into office_visit_remarks (office_visit_id,remarks,remarks_date,created_by) values(?,?,?,?)";
+        "insert into office_visit_remarks (office_visit_id,remarks,remarks_date,created_by,user_id,) values(?,?,?,?,?)";
 
       const values = [office_visit_id, remarks, remarks_date, created_by];
       connection.query(data, values, (err, result) => {
