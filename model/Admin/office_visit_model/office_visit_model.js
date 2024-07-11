@@ -73,7 +73,7 @@ const office_visit = {
       } = req.body;
 
       const queryFirst =
-        "INSERT INTO office_visit (office_name, office_address, office_mobile, office_email, add_office_date, created_by, created_date, modified_date,user_id,) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)";
+        "INSERT INTO office_visit (office_name, office_address, office_mobile, office_email, add_office_date, created_by, created_date, modified_date,user_id,) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
       const valuesFirst = [
         office_name,
         office_address,
@@ -96,7 +96,7 @@ const office_visit = {
         const office_visit_id = result.insertId;
 
         const querySecond =
-          "INSERT INTO office_visit_remarks (office_visit_id, remarks, remarks_date, created_by, created_date, modified_date,user_id,) VALUES (?, ?, ?, ?, ?, ?,?)";
+          "INSERT INTO office_visit_remarks (office_visit_id, remarks, remarks_date, created_by, created_date, modified_date,user_id,) VALUES (?, ?, ?, ?, ?, ?, ?)";
         const valuesSecond = [
           office_visit_id,
           remarks,
@@ -116,7 +116,7 @@ const office_visit = {
           }
 
           const queryThirdd =
-            "INSERT INTO  office_visit_person  (office_visit_id,person_name,person_mobile,person_email,add_person_date,created_by, created_date, modified_date,user_id,)  VALUES (?, ?, ?, ?, ?, ?,?,?,?)";
+            "INSERT INTO  office_visit_person  (office_visit_id,person_name,person_mobile,person_email,add_person_date,created_by, created_date, modified_date,user_id,)  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
           const valuesThird = [
             office_visit_id,
             person_name,
