@@ -25,27 +25,26 @@ app.post("/login_user", users_model.loginUserEmailPassword);
 
 app.post("/user_token/:id", users_model.userToken);
 
-app.get('/specifi_user/:id', users_model.usersListAllForSpecific);
+app.get("/specifi_user/:id", users_model.usersListAllForSpecific);
 
+app.post("/change_password/:id", users_model.changePassword);
 
-app.post('/change_password/:id', users_model.changePassword);
+app.post("/update_profile/:id", users_model.userProfileUpdate);
 
-app.post('/update_profile/:id', users_model.userProfileUpdate);
-
-var fs = require('fs');
-var multer = require('multer');
+var fs = require("fs");
+var multer = require("multer");
 // var upload = multer({dest: 'uploads/'});
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/');
+    cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
   },
 });
 
-const upload = multer({storage: storage});
+const upload = multer({ storage: storage });
 
 //setting the default folder for multer
 //other imports and code will go here
@@ -63,43 +62,43 @@ const upload = multer({storage: storage});
 //   });
 // });
 
-app.post('/upload/:id', upload.single('originalname'), (req, res) => {
+app.post("/upload/:id", upload.single("originalname"), (req, res) => {
   if (!req.file) {
-    return res.status(400).send('No file uploaded.');
+    return res.status(400).send("No file uploaded.");
   }
 
   console.log(req.file);
   console.log(req.params);
   console.log(req.body);
 
-  const {originalname} = req.file;
-  const {id: userId} = req.params;
+  const { originalname } = req.file;
+  const { id: userId } = req.params;
 
-  const query = 'UPDATE users SET photo = ? WHERE id = ?';
+  const query = "UPDATE users SET photo = ? WHERE id = ?";
   connection.query(query, [originalname, userId], (err, results) => {
     if (err) {
-      console.error('Error inserting into the database:', err);
-      return res.status(500).send('Error inserting into the database.');
+      console.error("Error inserting into the database:", err);
+      return res.status(500).send("Error inserting into the database.");
     }
 
-    console.log('File name inserted into database:', results);
+    console.log("File name inserted into database:", results);
 
     if (results.affectedRows === 1) {
-      res.send('File uploaded and database updated successfully.');
+      res.send("File uploaded and database updated successfully.");
     } else {
-      res.status(404).send('User ID not found or no rows updated.');
+      res.status(404).send("User ID not found or no rows updated.");
     }
   });
 });
-app.get('/uploads/:file', (req, res) => {
-  const {file} = req.params;
+app.get("/uploads/:file", (req, res) => {
+  const { file } = req.params;
   const imageFilePath = path.join(__dirname, `/uploads/${file}`);
 
   // Check if the image file exists
   if (fs.existsSync(imageFilePath)) {
     res.sendFile(imageFilePath);
   } else {
-    res.status(404).json({error: 'Image file not found'});
+    res.status(404).json({ error: "Image file not found" });
   }
 });
 

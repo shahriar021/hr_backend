@@ -158,6 +158,25 @@ const users_model = {
       console.error("Error updating password:", err);
     }
   },
+
+  usersListAllForSpecific: async (req, res) => {
+    const { id } = req.params;
+    try {
+      const data = "SELECT * FROM users where id=?";
+
+      connection.query(data, [id], function (error, result) {
+        if (!error) {
+          res.status(200).send(result);
+        } else {
+          console.error(error);
+          res.status(500).send("Internal server error");
+        }
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal server error");
+    }
+  },
 };
 
 module.exports = users_model;
