@@ -102,6 +102,8 @@ app.get("/uploads/:file", (req, res) => {
   }
 });
 
+app.get("designaiton/:id",users_model.userDesignation)
+
 // ---------------------------------------end of users --------------------------------
 
 app.get(

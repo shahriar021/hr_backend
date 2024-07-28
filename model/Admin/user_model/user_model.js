@@ -177,6 +177,21 @@ const users_model = {
       res.status(500).send("Internal server error");
     }
   },
+
+  userDesignation: async (req, res) => {
+    const { id } = req.params;
+    const sql =
+      "select designation_name from designation left join employe_joining on designation.id=employe_joining.designation_id where user_id=?";
+
+    connection.query(sql, [id], function (err, result) {
+      if (!err) {
+        res.status(200).send(result);
+      } else {
+        console.error(err);
+        res.status(500).send("Internal server error");
+      }
+    });
+  },
 };
 
 module.exports = users_model;
