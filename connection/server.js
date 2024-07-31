@@ -33,6 +33,7 @@ app.post("/update_profile/:id", users_model.userProfileUpdate);
 
 var fs = require("fs");
 var multer = require("multer");
+const dashboard_model = require("../model/Admin/dashboard_model/dashboard_model");
 // var upload = multer({dest: 'uploads/'});
 
 const storage = multer.diskStorage({
@@ -199,6 +200,8 @@ app.post(
 );
 
 // -------------------------------------end of geo location -----------------------------
+
+app.get("/dashboard/weekly_allowance/:id", dashboard_model.weeklyAllowance);
 
 const PORT = 5000;
 app.listen(PORT, () => {
