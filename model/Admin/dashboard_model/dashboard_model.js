@@ -21,8 +21,7 @@ const dashboard_model = {
     const { id } = req.params;
     const sql = `
       SELECT 
-        mobile_allowance.amount AS mob, 
-        transport_allowance.amount AS trans 
+        *
       FROM 
         transport_allowance 
       LEFT JOIN 
